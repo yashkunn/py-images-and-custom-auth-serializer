@@ -39,7 +39,7 @@ class Actor(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
-def create_custom_path(instance: "Movie", filename: str) -> pathlib.Path:
+def movie_image_file_path(instance: "Movie", filename: str) -> pathlib.Path:
     filename = (
         f"{slugify(instance.title)}-{uuid.uuid4()}"
         + pathlib.Path(filename).suffix
@@ -54,7 +54,7 @@ class Movie(models.Model):
     genres = models.ManyToManyField(Genre)
     actors = models.ManyToManyField(Actor)
     image = models.ImageField(
-        upload_to="create_custom_path",
+        upload_to="movie_image_file_path",
         null=True,
         blank=True
     )
